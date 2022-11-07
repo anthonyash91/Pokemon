@@ -15,7 +15,7 @@ class Index extends React.Component {
               <div key={monster._id}>
                 {name}<br />
                 {regionalForm ? <span className='cap'>{regionalForm}<br /></span> : ''}
-                primary type: <a className='cap' href={`/pokemon/type/${primaryType}`}>{primaryType}</a><br />
+                Primary type: <a className='cap' href={`/pokemon/type/${primaryType}`}>{primaryType}</a><br />
                 {secondaryType ? <>secondary type: <a className='cap' href={`/pokemon/type/${secondaryType}`}>{secondaryType}</a><br /></> : ''}
                 {species}<br />
                 <a className='cap' href={`/pokemon/region/${region.toLowerCase()}`}>{region}</a><br />
