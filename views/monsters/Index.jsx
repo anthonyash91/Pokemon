@@ -10,7 +10,9 @@ class Index extends React.Component {
         {
           monsters.map((monster) => {
             return (
-              <div key={monster._id} />
+              <div key={monster._id}>
+                hi
+              </div>
             )
           }).reverse()
         }
