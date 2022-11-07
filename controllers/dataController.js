@@ -3,7 +3,7 @@ const Monster = require('../models/monster')
 // put routes in here that pull data from the DB (index, delete, update, create, show)
 const dataController = {
   index (req, res, next) {
-    Monster.find({}, (err, foundMonsters) => {
+    Monster.find({ username: req.session.username }, (err, foundMonsters) => {
       if (err) {
         res.status(400).send({ msg: err.message })
       } else {
@@ -59,6 +59,8 @@ const dataController = {
     })
   },
   create (req, res, next) {
+    req.body.username = req.session.username
+    
     Monster.create(req.body, (err, createdMonster) => {
       if (err) {
         res.status(400).send({ msg: err.message })

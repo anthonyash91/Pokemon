@@ -8,18 +8,20 @@ class Layout extends React.Component {
       <html lang='en'>
         <head>
           <title>Poképroject</title>
-          <link rel='stylesheet' href='/css/style.css' />
+          <link rel='stylesheet' href='/css/app.css' />
           <script defer src='/js/app.js' />
         </head>
 
         <body>
-          <a href='/'>Home</a><br /><br />
-          {indexPage ? <>{indexPage}</> : ''}
-          {caughtPage ? <>{caughtPage}</> : ''}
-          {typePagePrimary ? <><span class='header-primary'></span>{typePagePrimary}<br /></> : ''}
-          {typePageSecondary ? <><span class='header-secondary'></span>{typePageSecondary}<br /></> : ''}
-
-          {regionPage ? <>{regionPage}</> : ''}<br /><br /><br />
+          <a href='/'>Home</a><br />
+          <a href='/pokemon/new'>New</a><br />
+          <a href='/user/logout'>Logout</a><br /><br />
+          {indexPage ? <>{indexPage}<br /><br /><br /></> : ''}
+          {caughtPage ? <>{caughtPage}<br /><br /><br /></> : ''}
+          {regionPage ? <>{regionPage}<br /><br /><br /></> : ''}
+          {typePagePrimary ? <><span className='header-primary'></span>{typePagePrimary}<br /></> : ''}
+          {typePageSecondary ? <><span className='header-secondary'></span>{typePageSecondary}<br /><br /><br /></> : ''}
+          
 
           {this.props.children}
         </body>

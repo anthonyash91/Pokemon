@@ -5,7 +5,7 @@ const viewController = {
   index (req, res, next) {
     res.render('monsters/Index', res.locals.data) // render the file path for your JSX files
   },
-  newView (req, res, next) {
+  create (req, res, next) {
     res.render('monsters/New', res.locals.data)
   },
   category (req, res, next) {
@@ -23,6 +23,11 @@ const viewController = {
   redirectShow (req, res, next) {
     const monsterId = req.params.id || res.locals.data.monster._id
     res.redirect(`${RESOURCE_PATH}/${monsterId}`) // where you want the user to be redirected after a new entry is posted
+  },
+  redirectComment (req, res, next) {
+    const monsterId = req.params.id || res.locals.data.monster._id
+    const type = req.params.postType || res.locals.data.postType
+    res.redirect(`${RESOURCE_PATH}/${type}/${monsterId}#comments-end`)
   }
 }
 

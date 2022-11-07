@@ -15,7 +15,7 @@ router.get('/', dataController.index, viewController.index) // index
 router.get('/status', viewController.redirectHome)
 router.get('/region', viewController.redirectHome)
 router.get('/type', viewController.redirectHome)
-router.get('/new/', dataController.newView, viewController.newView) // new
+router.get('/new', viewController.create) // new
 router.get('/status/:category', dataController.category, viewController.category) // new
 router.get('/type/:category', dataController.category, viewController.category) // new
 router.get('/region/:category', dataController.category, viewController.category) // new

@@ -17,15 +17,15 @@ class Region extends React.Component {
               return (
                 <div key={monster._id}>
                   {name}<br />
-                  {regionalForm ? <>{regionalForm}<br /></> : ''}
-                  primary type: <a href={`/pokemon/type/${primaryType}`}>{primaryType}</a><br />
-                  {secondaryType ? <>secondary type: <a href={`/pokemon/type/${secondaryType}`}>{secondaryType}</a><br /></> : ''}
-                  {species}<br />
-                  <a href={`/pokemon/region/${region}`}>{region}</a><br />
-                  <img src={image} width='100px' /><br />
-                  {entry}<br />
-                  {evolutionType ? <>{evolutionType}<br /></> : ''}
-                  {hasBeenCaught === 'caught' ? <><a href='/pokemon/caught'>caught</a></> : <><a href='/pokemon/uncaught'>uncaught</a></>}
+                {regionalForm ? <span className='cap'>{regionalForm}<br /></span> : ''}
+                primary type: <a className='cap' href={`/pokemon/type/${primaryType}`}>{primaryType}</a><br />
+                {secondaryType ? <>secondary type: <a className='cap' href={`/pokemon/type/${secondaryType}`}>{secondaryType}</a><br /></> : ''}
+                {species}<br />
+                <a className='cap' href={`/pokemon/region/${region}`}>{region}</a><br />
+                <img src={image} width='100px' /><br />
+                {entry}<br />
+                {evolutionType ? <>{evolutionType}<br /></> : ''}
+                {hasBeenCaught === 'caught' ? <><a className='cap' href='/pokemon/status/caught'>caught</a></> : <><a className='cap' href='/pokemon/status/uncaught'>uncaught</a></>}<br />
                   <br /><br /><br /><br /><br /><br />
                 </div>
               )
@@ -44,15 +44,15 @@ class Region extends React.Component {
               return (
                 <div key={monster._id}>
                   {name}<br />
-                  {regionalForm ? <>{regionalForm}<br /></> : ''}
-                  primary type: <a href={`/pokemon/type/${primaryType}`}>{primaryType}</a><br />
-                  {secondaryType ? <>secondary type: <a href={`/pokemon/type/${secondaryType}`}>{secondaryType}</a><br /></> : ''}
-                  {species}<br />
-                  <a href={`/pokemon/region/${region}`}>{region}</a><br />
-                  <img src={image} width='100px' /><br />
-                  {entry}<br />
-                  {evolutionType ? <>{evolutionType}<br /></> : ''}
-                  {hasBeenCaught === 'caught' ? <><a href='/pokemon/caught'>caught</a></> : <><a href='/pokemon/uncaught'>uncaught</a></>}
+                {regionalForm ? <span className='cap'>{regionalForm}<br /></span> : ''}
+                primary type: <a className='cap' href={`/pokemon/type/${primaryType}`}>{primaryType}</a><br />
+                {secondaryType ? <>secondary type: <a className='cap' href={`/pokemon/type/${secondaryType}`}>{secondaryType}</a><br /></> : ''}
+                {species}<br />
+                <a className='cap' href={`/pokemon/region/${region}`}>{region}</a><br />
+                <img src={image} width='100px' /><br />
+                {entry}<br />
+                {evolutionType ? <>{evolutionType}<br /></> : ''}
+                {hasBeenCaught === 'caught' ? <><a className='cap' href='/pokemon/status/caught'>caught</a></> : <><a className='cap' href='/pokemon/status/uncaught'>uncaught</a></>}<br />
                   <br /><br /><br /><br /><br /><br />
                 </div>
               )
@@ -65,26 +65,34 @@ class Region extends React.Component {
 
       return (
         <Layout typePagePrimary={` Pokémon with primary ${category} typing`} typePageSecondary={` Pokémon with secondary ${category} typing`}>
-          {
+          { 
             types.map((monster) => {
               const { name, regionalForm, primaryType, secondaryType, species, region, image, entry, evolutionType, hasBeenCaught } = monster
               return (
                 <div key={monster._id}>
+                  
+
                   {name}<br />
-                  {regionalForm ? <>{regionalForm}<br /></> : ''}
-                  {primaryType === category ? <div className='primary'>primary type: <a href={`/pokemon/type/${primaryType}`}>{primaryType}</a><br /></div> : ''}
-                  {secondaryType === category ? <div className='secondary'>secondary type: <a href={`/pokemon/type/${secondaryType}`}>{secondaryType}</a><br /></div> : ''}
-                  {species}<br />
-                  <a href={`/pokemon/region/${region}`}>{region}</a><br />
-                  <img src={image} width='100px' /><br />
-                  {entry}<br />
-                  {evolutionType ? <>{evolutionType}<br /></> : ''}
-                  {hasBeenCaught === 'caught' ? <><a href='/pokemon/caught'>caught</a></> : <><a href='/pokemon/uncaught'>uncaught</a></>}
+                {regionalForm ? <span className='cap'>{regionalForm}<br /></span> : ''}
+                {primaryType === category ? <div className='primary'>primary type: <a className='cap' href={`/pokemon/type/${primaryType}`}>{primaryType}</a><br /></div> : ''}
+                  {secondaryType === category ? <div className='secondary'>secondary type: <a className='cap' href={`/pokemon/type/${secondaryType}`}>{secondaryType}</a><br /></div> : ''}
+                {species}<br />
+                <a className='cap' href={`/pokemon/region/${region}`}>{region}</a><br />
+                <img src={image} width='100px' /><br />
+                {entry}<br />
+                {evolutionType ? <>{evolutionType}<br /></> : ''}
+                {hasBeenCaught === 'caught' ? <><a className='cap' href='/pokemon/status/caught'>caught</a></> : <><a className='cap' href='/pokemon/status/uncaught'>uncaught</a></>}<br />
                   <br /><br /><br /><br /><br /><br />
                 </div>
               )
             }).reverse()
           }
+        </Layout>
+      )
+    } else {
+      return (
+        <Layout>
+          hi
         </Layout>
       )
     }

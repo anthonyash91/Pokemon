@@ -9,24 +9,21 @@ class Index extends React.Component {
       <Layout indexPage={monsters.length + ' Pokémon entered'}>
         {
           monsters.map((monster) => {
-            const { name, regionalForm, primaryType, secondaryType, species, region, image, entry, evolutionType, hasBeenCaught } = monster
-            const capRegionalForm = regionalForm.toLowerCase().split(' ').map((letter) => letter.charAt(0).toUpperCase() + letter.substring(1)).join(' ')
-            const capPrimaryType = primaryType.toLowerCase().split(' ').map((letter) => letter.charAt(0).toUpperCase() + letter.substring(1)).join(' ')
-            const capSecondaryType = secondaryType.toLowerCase().split(' ').map((letter) => letter.charAt(0).toUpperCase() + letter.substring(1)).join(' ')
-            const capRegion = region.toLowerCase().split(' ').map((letter) => letter.charAt(0).toUpperCase() + letter.substring(1)).join(' ')
+            const { name, regionalForm, primaryType, secondaryType, species, region, image, entry, evolutionType, hasBeenCaught, _id } = monster
 
             return (
               <div key={monster._id}>
                 {name}<br />
-                {regionalForm ? <>{capRegionalForm}<br /></> : ''}
-                primary type: <a href={`/pokemon/type/${primaryType}`}>{capPrimaryType}</a><br />
-                {secondaryType ? <>secondary type: <a href={`/pokemon/type/${secondaryType}`}>{capSecondaryType}</a><br /></> : ''}
+                {regionalForm ? <span className='cap'>{regionalForm}<br /></span> : ''}
+                primary type: <a className='cap' href={`/pokemon/type/${primaryType}`}>{primaryType}</a><br />
+                {secondaryType ? <>secondary type: <a className='cap' href={`/pokemon/type/${secondaryType}`}>{secondaryType}</a><br /></> : ''}
                 {species}<br />
-                <a href={`/pokemon/region/${region}`}>{capRegion}</a><br />
+                <a className='cap' href={`/pokemon/region/${region.toLowerCase()}`}>{region}</a><br />
                 <img src={image} width='100px' /><br />
                 {entry}<br />
                 {evolutionType ? <>{evolutionType}<br /></> : ''}
-                {hasBeenCaught === 'caught' ? <><a href='/pokemon/caught'>caught</a></> : <><a href='/pokemon/uncaught'>caught</a></>}
+                {hasBeenCaught === 'caught' ? <><a className='cap' href='/pokemon/status/caught'>caught</a></> : <><a className='cap' href='/pokemon/status/uncaught'>uncaught</a></>}<br />
+                <form method='POST' action={`/pokemon/${_id}?_method=DELETE`}><input type='submit' value={`Delete ${name}`} /></form>
                 <br /><br /><br /><br /><br /><br />
               </div>
             )
