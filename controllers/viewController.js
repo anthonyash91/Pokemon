@@ -8,11 +8,8 @@ const viewController = {
   newView (req, res, next) {
     res.render('monsters/New', res.locals.data)
   },
-  caught (req, res, next) {
+  isCaught (req, res, next) {
     res.render('monsters/Caught', res.locals.data)
-  },
-  uncaught (req, res, next) {
-    res.render('monsters/Uncaught', res.locals.data)
   },
   edit (req, res, next) {
     res.render('monsters/Edit', res.locals.data)

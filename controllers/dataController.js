@@ -12,21 +12,12 @@ const dataController = {
       }
     })
   },
-  caught (req, res, next) {
+  isCaught (req, res, next) {
     Monster.find({}, (err, foundMonsters) => {
       if (err) {
         res.status(400).send({ msg: err.message })
       } else {
-        res.locals.data.monsters = foundMonsters
-        next()
-      }
-    })
-  },
-  uncaught (req, res, next) {
-    Monster.find({}, (err, foundMonsters) => {
-      if (err) {
-        res.status(400).send({ msg: err.message })
-      } else {
+        res.locals.data.isCaught = req.params.isCaught
         res.locals.data.monsters = foundMonsters
         next()
       }
