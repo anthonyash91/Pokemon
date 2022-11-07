@@ -16,7 +16,7 @@ class Layout extends React.Component {
           {caughtPage ? <>{caughtPage}</> : ''}
           {typePage ? <>{typePage}</> : ''}
           {regionPage ? <>{regionPage}</> : ''}<br /><br /><br />
-          
+
           {this.props.children}
         </body>
       </html>

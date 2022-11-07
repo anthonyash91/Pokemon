@@ -27,7 +27,7 @@ class Index extends React.Component {
                 <img src={image} width='100px' /><br />
                 {entry}<br />
                 {evolutionType ? <>{evolutionType}<br /></> : ''}
-                {hasBeenCaught === 'caught' ? <><a href={`/pokemon/caught`}>caught</a></> : <><a href={`/pokemon/uncaught`}>caught</a></>}
+                {hasBeenCaught === 'caught' ? <><a href='/pokemon/caught'>caught</a></> : <><a href='/pokemon/uncaught'>caught</a></>}
                 <br /><br /><br /><br /><br /><br />
               </div>
             )
