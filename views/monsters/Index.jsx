@@ -1,12 +1,12 @@
 const React = require('react')
-// const Layout = require('../layout/Layout.jsx')
+const Layout = require('../layout/Layout.jsx')
 
 class Index extends React.Component {
   render () {
     const { monsters } = this.props
 
     return (
-      <div>
+      <Layout indexPage={monsters.length + ' Pokémon entered'}>
         {
           monsters.map((monster) => {
             const { name, regionalForm, primaryType, secondaryType, species, region, image, entry, evolutionType, hasBeenCaught } = monster
@@ -17,7 +17,6 @@ class Index extends React.Component {
 
             return (
               <div key={monster._id}>
-                {monsters.length} Pokémon entered<br /><br /><br />
                 {name}<br />
                 {regionalForm ? <>{capRegionalForm}<br /></> : ''}
                 primary type: <a href={`/pokemon/type/${primaryType}`}>{capPrimaryType}</a><br />
@@ -33,7 +32,7 @@ class Index extends React.Component {
             )
           }).reverse()
         }
-      </div>
+      </Layout>
     )
   }
 }

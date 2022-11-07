@@ -13,6 +13,8 @@ class Layout extends React.Component {
         </head>
 
         <body>
+          <a href='/'>Home</a><br /><br />
+          {indexPage ? <>{indexPage}</> : ''}
           {caughtPage ? <>{caughtPage}</> : ''}
           {typePage ? <>{typePage}</> : ''}
           {regionPage ? <>{regionPage}</> : ''}<br /><br /><br />
