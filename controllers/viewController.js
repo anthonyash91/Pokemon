@@ -8,20 +8,14 @@ const viewController = {
   newView (req, res, next) {
     res.render('monsters/New', res.locals.data)
   },
-  isCaught (req, res, next) {
-    res.render('monsters/Caught', res.locals.data)
+  category (req, res, next) {
+    res.render('monsters/Category', res.locals.data)
   },
   edit (req, res, next) {
     res.render('monsters/Edit', res.locals.data)
   },
   show (req, res, next) {
     res.render('monsters/Show', res.locals.data)
-  },
-  type (req, res, next) {
-    res.render('monsters/Type', res.locals.data)
-  },
-  region (req, res, next) {
-    res.render('monsters/Region', res.locals.data)
   },
   redirectHome (req, res, next) {
     res.redirect(RESOURCE_PATH)

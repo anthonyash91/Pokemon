@@ -23,23 +23,12 @@ const dataController = {
       }
     })
   },
-  type (req, res, next) {
+  category (req, res, next) {
     Monster.find({}, (err, foundMonsters) => {
       if (err) {
         res.status(400).send({ msg: err.message })
       } else {
-        res.locals.data.type = req.params.type
-        res.locals.data.monsters = foundMonsters
-        next()
-      }
-    })
-  },
-  region (req, res, next) {
-    Monster.find({}, (err, foundMonsters) => {
-      if (err) {
-        res.status(400).send({ msg: err.message })
-      } else {
-        res.locals.data.region = req.params.region
+        res.locals.data.category = req.params.category
         res.locals.data.monsters = foundMonsters
         next()
       }
