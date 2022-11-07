@@ -60,11 +60,11 @@ class Region extends React.Component {
           }
         </Layout>
       )
-    } else if (category === 'bug' || category === 'steel' || category === 'dragon' || category === 'electric' || category === 'fairy' || category === 'fighting' || category === 'fire' || category === 'flying' || category === 'ghost' || category === 'grass' || category === 'ground' || category === 'ice' || category === 'normal' || category === 'poison' || category === 'psychic' || category === 'rock' || category === 'steel' || category === 'water') {
+    } else if (category === 'bug' || category === 'dark' || category === 'dragon' || category === 'electric' || category === 'fairy' || category === 'fighting' || category === 'fire' || category === 'flying' || category === 'ghost' || category === 'grass' || category === 'ground' || category === 'ice' || category === 'normal' || category === 'poison' || category === 'psychic' || category === 'rock' || category === 'steel' || category === 'water') {
       const types = monsters.filter(object => object.primaryType === category || object.secondaryType === category)
 
       return (
-        <Layout typePage={`${types.length} ${category} Pokémon`}>
+        <Layout typePagePrimary={` Pokémon with primary ${category} typing`} typePageSecondary={` Pokémon with secondary ${category} typing`}>
           {
             types.map((monster) => {
               const { name, regionalForm, primaryType, secondaryType, species, region, image, entry, evolutionType, hasBeenCaught } = monster
@@ -72,8 +72,8 @@ class Region extends React.Component {
                 <div key={monster._id}>
                   {name}<br />
                   {regionalForm ? <>{regionalForm}<br /></> : ''}
-                  {primaryType === category ? <>primary type: <a href={`/pokemon/type/${primaryType}`}>{primaryType}</a><br /></> : ''}
-                  {secondaryType === category ? <>secondary type: <a href={`/pokemon/type/${secondaryType}`}>{secondaryType}</a><br /></> : ''}
+                  {primaryType === category ? <div className='primary'>primary type: <a href={`/pokemon/type/${primaryType}`}>{primaryType}</a><br /></div> : ''}
+                  {secondaryType === category ? <div className='secondary'>secondary type: <a href={`/pokemon/type/${secondaryType}`}>{secondaryType}</a><br /></div> : ''}
                   {species}<br />
                   <a href={`/pokemon/region/${region}`}>{region}</a><br />
                   <img src={image} width='100px' /><br />
