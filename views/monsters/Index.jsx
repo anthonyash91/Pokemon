@@ -20,14 +20,14 @@ class Index extends React.Component {
                 {monsters.length} Pokémon entered<br /><br /><br />
                 {name}<br />
                 {regionalForm ? <>{capRegionalForm}<br /></> : ''}
-                {capPrimaryType}<br />
-                {secondaryType ? <>{capSecondaryType}<br /></> : ''}
+                <a href={`/pokemon/type/${primaryType}`}>{capPrimaryType}</a><br />
+                {secondaryType ? <><a href={`/pokemon/type/${secondaryType}`}>{capSecondaryType}</a><br /></> : ''}
                 {species}<br />
-                {capRegion}<br />
+                <a href={`/pokemon/region/${region}`}>{capRegion}</a><br />
                 <img src={image} width='100px' /><br />
                 {entry}<br />
                 {evolutionType ? <>{evolutionType}<br /></> : ''}
-                {hasBeenCaught}
+                {hasBeenCaught === 'caught' ? <><a href={`/pokemon/caught`}>caught</a></> : <><a href={`/pokemon/uncaught`}>uncaught</a></>}
                 <br /><br /><br /><br /><br /><br />
               </div>
             )

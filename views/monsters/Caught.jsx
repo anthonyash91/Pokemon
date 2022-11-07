@@ -1,15 +1,14 @@
 const React = require('react')
-// const Layout = require('../layout/Layout.jsx')
+const Layout = require('../layout/Layout.jsx')
 
 class Caught extends React.Component {
   render () {
     const { monsters } = this.props
-    const caughStatus = this.props.isCaught
-
-    const isCaught = monsters.filter(object => object.hasBeenCaught === caughStatus)
+    const caughtStatus = this.props.isCaught
+    const isCaught = monsters.filter(object => object.hasBeenCaught === caughtStatus)
 
     return (
-      <div>
+      <Layout caughtPage={caughtStatus === 'caught' ? <>{isCaught.length} caught Pokémon<br /><br /><br /></> : caughtStatus === 'uncaught' ? <>{isCaught.length} uncaught Pokémon<br /><br /><br /></> : ''}>
         {
           isCaught.map((monster) => {
             const { name, regionalForm, primaryType, secondaryType, species, region, image, entry, evolutionType, hasBeenCaught } = monster
@@ -20,23 +19,22 @@ class Caught extends React.Component {
 
             return (
               <div key={monster._id}>
-                {this.props.isCaught === 'caught' ? <>{isCaught.length} Pokémon caught<br /><br /><br /></> : <>{isCaught.length} Pokémon uncaught<br /><br /><br /></>}
                 {name}<br />
                 {regionalForm ? <>{capRegionalForm}<br /></> : ''}
-                {capPrimaryType}<br />
-                {secondaryType ? <>{capSecondaryType}<br /></> : ''}
+                <a href={`/pokemon/type/${primaryType}`}>{capPrimaryType}</a><br />
+                {secondaryType ? <><a href={`/pokemon/type/${secondaryType}`}>{capSecondaryType}</a><br /></> : ''}
                 {species}<br />
-                {capRegion}<br />
+                <a href={`/pokemon/region/${region}`}>{capRegion}</a><br />
                 <img src={image} width='100px' /><br />
                 {entry}<br />
                 {evolutionType ? <>{evolutionType}<br /></> : ''}
-                {hasBeenCaught}
+                {hasBeenCaught === 'caught' ? <><a href={`/pokemon/caught`}>caught</a></> : <><a href={`/pokemon/uncaught`}>uncaught</a></>}
                 <br /><br /><br /><br /><br /><br />
               </div>
             )
           }).reverse()
         }
-      </div>
+      </Layout>
     )
   }
 }
