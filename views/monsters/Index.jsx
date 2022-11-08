@@ -33,7 +33,7 @@ class Index extends React.Component {
 
                 {hasBeenCaught === 'caught' ? <><a className='cap' href='/pokemon/status/caught'>caught</a></> : <><a className='cap' href='/pokemon/status/uncaught'>uncaught</a></>}<br />
 
-                <form method='POST' action={`/pokemon/${_id}?_method=DELETE`}><input type='submit' value={`Delete ${name}`} /></form><br />
+                <form method='POST' action={`/pokemon/${name}/${_id}?_method=DELETE`}><input type='submit' value={`Delete ${name}`} /></form><br />
                 <br /><br /><br /><br /><br /><br />
               </div>
             )
