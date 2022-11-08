@@ -16,7 +16,7 @@ class Index extends React.Component {
 
             return (
               <div key={monster._id}>
-                {name}<br />
+                <a href={`/pokemon/${name.toLowerCase()}/${_id}`}>{name}</a><br />
                 {regionalForm ? <span className='cap'>{regionalForm}<br /></span> : ''}
 
                 {this.props.pageType === 'type' ? primaryType === category ? <>Primary type: <a className='cap' href={`/pokemon/type/${primaryType}`}>{primaryType}</a><br /></> : secondaryType === category ? <>Secondary type: <a className='cap' href={`/pokemon/type/${secondaryType}`}>{secondaryType}</a><br /></> : '' : <>Primary type: <a className='cap' href={`/pokemon/type/${primaryType}`}>{primaryType}</a><br />{secondaryType ? <>Secondary type: <a className='cap' href={`/pokemon/type/${secondaryType}`}>{secondaryType}</a><br /></> : ''}</>}
@@ -33,7 +33,7 @@ class Index extends React.Component {
 
                 {hasBeenCaught === 'caught' ? <><a className='cap' href='/pokemon/status/caught'>caught</a></> : <><a className='cap' href='/pokemon/status/uncaught'>uncaught</a></>}<br />
 
-                <form method='POST' action={`/pokemon/${_id}?_method=DELETE`}><input type='submit' value={`Delete ${name}`} /></form>
+                <form method='POST' action={`/pokemon/${_id}?_method=DELETE`}><input type='submit' value={`Delete ${name}`} /></form><br />
                 <br /><br /><br /><br /><br /><br />
               </div>
             )

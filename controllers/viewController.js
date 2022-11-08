@@ -22,7 +22,9 @@ const viewController = {
   },
   redirectShow (req, res, next) {
     const monsterId = req.params.id || res.locals.data.monster._id
-    res.redirect(`${RESOURCE_PATH}/${monsterId}`) // where you want the user to be redirected after a new entry is posted
+    const name = res.locals.data.monster.name
+    const nameLower = name.toLowerCase()
+    res.redirect(`${RESOURCE_PATH}/${nameLower}/${monsterId}`) // where you want the user to be redirected after a new entry is posted
   },
   redirectComment (req, res, next) {
     const monsterId = req.params.id || res.locals.data.monster._id

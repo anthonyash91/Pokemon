@@ -35,7 +35,6 @@ const dataController = {
         res.locals.data.monsters = foundMonsters
         res.locals.data.number = foundMonsters.length
         res.locals.data.indexPage = req.route.path
-
         next()
       }
     })
@@ -78,6 +77,7 @@ const dataController = {
         res.status(400).send({ msg: err.message })
       } else {
         res.locals.data.monster = foundMonster
+        // res.locals.data.newName = foundMonster.name
         next()
       }
     })
