@@ -16,9 +16,9 @@ router.get('/status', viewController.redirectHome)
 router.get('/region', viewController.redirectHome)
 router.get('/type', viewController.redirectHome)
 router.get('/new', viewController.create) // new
-router.get('/status/:category', dataController.category, viewController.category) // new
-router.get('/type/:category', dataController.category, viewController.category) // new
-router.get('/region/:category', dataController.category, viewController.category) // new
+router.get('/status/:category', dataController.index, viewController.index) // new
+router.get('/type/:category', dataController.index, viewController.index) // new
+router.get('/region/:category', dataController.index, viewController.index) // new
 router.delete('/:id', dataController.destroy, viewController.redirectHome) // delete
 router.put('/:id', dataController.update, viewController.redirectShow) // update
 router.post('/', dataController.create, viewController.redirectShow) // create

@@ -1,42 +1,44 @@
 const Monster = require('../models/monster')
 
-// put routes in here that pull data from the DB (index, delete, update, create, show)
 const dataController = {
   index (req, res, next) {
-    Monster.find({ username: req.session.username }, (err, foundMonsters) => {
-      if (err) {
-        res.status(400).send({ msg: err.message })
-      } else {
-        res.locals.data.monsters = foundMonsters
-        next()
+    let filterKey
+
+    const filters = {
+      region: ['kanto', 'johto', 'hoenn', 'sinnoh', 'unova', 'kalos', 'alola', 'galar', 'hisui', 'paldea'],
+      hasBeenCaught: ['caught', 'uncaught'],
+      primaryType: ['bug', 'dark', 'dragon', 'electric', 'fairy', 'fighting', 'fire', 'flying', 'ghost', 'grass', 'ground', 'ice', 'normal', 'poison', 'psychic', 'rock', 'steel', 'water']
+    }
+
+    const options = {}
+
+    for (const property in filters) {
+      const compare = filters[property].includes(req.params.category)
+
+      if (compare) {
+        filterKey = property
       }
-    })
-  },
-  isCaught (req, res, next) {
-    Monster.find({}, (err, foundMonsters) => {
-      if (err) {
-        res.status(400).send({ msg: err.message })
-      } else {
-        res.locals.data.isCaught = req.params.isCaught
-        res.locals.data.monsters = foundMonsters
-        next()
-      }
-    })
-  },
-  category (req, res, next) {
-    Monster.find({}, (err, foundMonsters) => {
+    }
+
+    if (filterKey === 'primaryType') {
+      options.$or = [{ primaryType: req.params.category }, { secondaryType: req.params.category }]
+    } else {
+      options[filterKey] = req.params.category
+    }
+
+    Monster.find(options, (err, foundMonsters) => {
       if (err) {
         res.status(400).send({ msg: err.message })
       } else {
         res.locals.data.category = req.params.category
+        res.locals.data.pageType = req.route.path.split('/')[1]
         res.locals.data.monsters = foundMonsters
+        res.locals.data.number = foundMonsters.length
+        res.locals.data.indexPage = req.route.path
+
         next()
       }
     })
-  },
-  newView (req, res, next) {
-    res.locals.data.region = req.params.region
-    next()
   },
   destroy (req, res, next) {
     Monster.findByIdAndDelete(req.params.id, (err, deletedMonster) => {
@@ -60,7 +62,7 @@ const dataController = {
   },
   create (req, res, next) {
     req.body.username = req.session.username
-    
+
     Monster.create(req.body, (err, createdMonster) => {
       if (err) {
         res.status(400).send({ msg: err.message })
