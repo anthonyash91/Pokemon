@@ -15,7 +15,7 @@ const monsterSchema = new mongoose.Schema({
   comments: [{
     commentName: { type: String, required: true },
     commentBody: { type: String, required: true },
-    commentProfileIconUrl: { type: String, required: false },
+    commentProfileIconUrl: { type: String, required: true },
     datePosted: { type: String, required: true }
   }]
 }, { timestamps: true })

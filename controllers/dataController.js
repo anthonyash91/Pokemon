@@ -11,6 +11,7 @@ const dataController = {
     }
 
     const options = {}
+    const userLogged = { username: req.session.username }
 
     for (const property in filters) {
       const compare = filters[property].includes(req.params.category)
@@ -64,6 +65,12 @@ const dataController = {
       if (err) {
         res.status(400).send({ msg: err.message })
       } else {
+        const commentProfileIcons = ['https://cdn.icon-icons.com/icons2/851/PNG/512/snorlax_icon-icons.com_67505.png', 'https://cdn.icon-icons.com/icons2/851/PNG/512/pikachu_icon-icons.com_67535.png', 'https://cdn.icon-icons.com/icons2/851/PNG/512/mew_icon-icons.com_67542.png', 'https://cdn.icon-icons.com/icons2/851/PNG/512/rattata_icon-icons.com_67508.png', 'https://cdn.icon-icons.com/icons2/851/PNG/512/dratini_icon-icons.com_67564.png', 'https://cdn.icon-icons.com/icons2/851/PNG/512/bellsprout_icon-icons.com_67585.png', 'https://cdn.icon-icons.com/icons2/851/PNG/512/ubat_icon-icons.com_67493.png', 'https://cdn.icon-icons.com/icons2/851/PNG/512/bulbasaur_icon-icons.com_67580.png', 'https://cdn.icon-icons.com/icons2/851/PNG/512/jigglypuff_icon-icons.com_67550.png', 'https://cdn.icon-icons.com/icons2/851/PNG/512/psyduck_icon-icons.com_67509.png', 'https://cdn.icon-icons.com/icons2/851/PNG/512/squirtle_icon-icons.com_67504.png', 'https://cdn.icon-icons.com/icons2/851/PNG/512/meowth_icon-icons.com_67543.png', 'https://cdn.icon-icons.com/icons2/851/PNG/512/eevee_icon-icons.com_67563.png', 'https://cdn.icon-icons.com/icons2/851/PNG/512/charmander_icon-icons.com_67576.png', 'https://cdn.icon-icons.com/icons2/851/PNG/512/venonat_icon-icons.com_67499.png', 'https://cdn.icon-icons.com/icons2/851/PNG/512/caterpie_icon-icons.com_67577.png', 'https://cdn.icon-icons.com/icons2/851/PNG/512/pidgey_icon-icons.com_67536.png', 'https://cdn.icon-icons.com/icons2/851/PNG/512/mankey_icon-icons.com_67546.png', 'https://cdn.icon-icons.com/icons2/851/PNG/512/abra_icon-icons.com_67592.png', 'https://cdn.icon-icons.com/icons2/851/PNG/512/weedle_icon-icons.com_67497.png']
+        const randomizeProfileIcons = Math.floor(Math.random() * commentProfileIcons.length)
+        const chooseRandomProfileIcon = commentProfileIcons[randomizeProfileIcons]
+
+        req.body.datePosted = new Date().toLocaleString()
+        req.body.commentProfileIconUrl = chooseRandomProfileIcon
         foundMonster.comments.push(req.body)
 
         Monster.findByIdAndUpdate(req.params.id, foundMonster, { new: true }, (err, updatedMonster) => {

@@ -32,6 +32,7 @@ router.get('/login', (req, res) => {
 
 router.post('/login', async (req, res) => {
   const { username, password } = req.body
+
   User.findOne({ username })
     .then(async (user) => {
       if (user) {

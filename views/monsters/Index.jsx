@@ -13,10 +13,17 @@ class Index extends React.Component {
         {
           monsters.map((monster) => {
             const { name, regionalForm, primaryType, secondaryType, species, region, image, entry, evolutionType, hasBeenCaught, _id } = monster
+            const nameLowerCase = name.toLowerCase()
+            // const nameArray = name.split(' ')
 
             return (
               <div key={monster._id}>
-                <a href={`/pokemon/${_id}`}>{name}</a><br />
+                <a href={`/pokemon/${nameLowerCase}/${_id}`}>{name}</a><br />
+                {/* {
+                  nameArray.map((name) => {
+                    return(<><a href=''>{name}</a>, </>)
+                  })
+                } */}
                 {regionalForm ? <span className='cap'>{regionalForm}<br /></span> : ''}
                 {this.props.pageType === 'type' ? primaryType === category ? <>Primary type: <a className='cap' href={`/pokemon/type/${primaryType}`}>{primaryType}</a><br /></> : secondaryType === category ? <>Secondary type: <a className='cap' href={`/pokemon/type/${secondaryType}`}>{secondaryType}</a><br /></> : '' : <>Primary type: <a className='cap' href={`/pokemon/type/${primaryType}`}>{primaryType}</a><br />{secondaryType ? <>Secondary type: <a className='cap' href={`/pokemon/type/${secondaryType}`}>{secondaryType}</a><br /></> : ''}</>}
                 {species}<br />
@@ -26,7 +33,7 @@ class Index extends React.Component {
                 {evolutionType ? <>{evolutionType}<br /></> : ''}
                 {hasBeenCaught === 'caught' ? <><a className='cap' href='/pokemon/status/caught'>caught</a></> : <><a className='cap' href='/pokemon/status/uncaught'>uncaught</a></>}<br />
 
-                <form method='POST' action={`/pokemon/${_id}?_method=DELETE`}><input type='submit' value={`Delete ${name}`} /></form><br />
+                <form method='POST' action={`/pokemon/${name}/${_id}?_method=DELETE`}><input type='submit' value={`Delete ${name}`} /></form><br />
                 <br /><br /><br /><br /><br /><br />
               </div>
             )

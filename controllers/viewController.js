@@ -22,11 +22,15 @@ const viewController = {
   },
   redirectShow (req, res, next) {
     const monsterId = req.params.id || res.locals.data.monster._id
-    res.redirect(`${RESOURCE_PATH}/${monsterId}`)
+    const monsterName = res.locals.data.monster.name
+    const nameLowerCase = monsterName.toLowerCase()
+    res.redirect(`${RESOURCE_PATH}/${nameLowerCase}/${monsterId}`)
   },
   redirectComment (req, res, next) {
     const monsterId = req.params.id || res.locals.data.monster._id
-    res.redirect(`${RESOURCE_PATH}/${monsterId}#comments-end`)
+    const monsterName = res.locals.data.monster.name
+    const nameLowerCase = monsterName.toLowerCase()
+    res.redirect(`${RESOURCE_PATH}/${nameLowerCase}/${monsterId}#comments-end`)
   }
 }
 

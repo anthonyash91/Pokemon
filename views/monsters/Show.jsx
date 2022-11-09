@@ -4,6 +4,7 @@ const Layout = require('../layout/Layout.jsx')
 class Show extends React.Component {
   render () {
     const { name, primaryType, secondaryType, species, region, regionalForm, image, entry, evolutionType, hasBeenCaught, _id, comments } = this.props.monster
+    const nameLowerCase = name.toLowerCase()
 
     return (
       <Layout>
@@ -18,25 +19,33 @@ class Show extends React.Component {
         {evolutionType ? <>{evolutionType}<br /></> : ''}
         {hasBeenCaught === 'caught' ? <><a className='cap' href='/pokemon/status/caught'>caught</a></> : <><a className='cap' href='/pokemon/status/uncaught'>uncaught</a></>}<br />
 
-        <form method='POST' action={`/pokemon/${_id}?_method=DELETE`}><input type='submit' value={`Delete ${name}`} /></form><br />
-        <a href={`/pokemon/${_id}/edit`}>edit {name}</a>
+        <form method='POST' action={`/pokemon/${nameLowerCase}/${_id}?_method=DELETE`}><input type='submit' value={`Delete ${name}`} /></form><br />
+        <a href={`/pokemon/${nameLowerCase}/${_id}/edit`}>edit {name}</a>
 
-        {
+        <div id='comments'>
+          <h1>Comments</h1>
+          {
           comments.length
             ? comments.map((comment) => {
               return (
-                <div key={comment._id}>
-                  <p>Name: {comment.commentName}</p>
-                  <p>Comment: {comment.commentBody}</p>
+                <div className='comment-container' key={comment._id}>
+                  <div className='icon' style={{ backgroundImage: `url(${comment.commentProfileIconUrl ? comment.commentProfileIconUrl : 'https://cdn.icon-icons.com/icons2/851/PNG/512/dratini_icon-icons.com_67564.png'})` }} />
+
+                  <div className='comment'>
+                    <div><b>Name:</b> {comment.commentName}</div>
+                    <div><b>Comment:</b> {comment.commentBody}</div>
+                    <div><small>{comment.datePosted}</small></div>
+                  </div>
                 </div>
               )
             })
             : ''
         }
-
-        <form method='POST' action={`/pokemon/${_id}/comments?_method=PUT`}>
-          <input type='text' name='commentName' required />
-          <input type='text' name='commentBody' required />
+        </div>
+        <div id='comments-end' />
+        <form method='POST' action={`/pokemon/${nameLowerCase}/${_id}/comments?_method=PUT`}>
+          <input type='text' name='commentName' required /><br />
+          <input type='text' name='commentBody' required /><br />
           <input type='submit' value='submit' />
         </form>
       </Layout>

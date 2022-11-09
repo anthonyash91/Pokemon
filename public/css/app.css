@@ -1,3 +1,42 @@
 .cap {
   text-transform: capitalize;
 }
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+#comments {
+  width: 250px;
+}
+
+.comment-container {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: repeat(2, auto);
+  margin-bottom: 30px;
+}
+
+.comment-container {
+  
+}
+
+.comment-container .icon {
+  background-color: #f5f5f5;
+  background-position: center;
+  background-size: cover;
+  border: 5px solid #f5f5f5;
+  /* border-radius: 99px; */
+  height: 60px;
+  width: 60px; 
+}
+
+.comment-container .comment {
+  /* align-items: center; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 200px;
+}

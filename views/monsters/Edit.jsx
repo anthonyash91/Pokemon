@@ -4,10 +4,11 @@ const Layout = require('../layout/Layout.jsx')
 class Edit extends React.Component {
   render () {
     const { name, primaryType, secondaryType, species, region, regionalForm, image, entry, evolutionType, hasBeenCaught, _id } = this.props.monster
+    const nameLowerCase = name.toLowerCase()
 
     return (
       <Layout>
-        <form method='POST' action={`/pokemon/${_id}?_method=PUT`}>
+        <form method='POST' action={`/pokemon/${nameLowerCase}/${_id}?_method=PUT`}>
           <input type='text' name='name' placeholder='name' defaultValue={name} /><br />
           <input type='text' name='regionalForm' placeholder='regionalForm' defaultValue={regionalForm} /><br />
           <input type='text' name='primaryType' placeholder='primaryType' defaultValue={primaryType} /><br />
