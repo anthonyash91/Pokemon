@@ -7,7 +7,7 @@ class Edit extends React.Component {
 
     return (
       <Layout>
-        <form method='POST' action={`/pokemon/${name}/${_id}?_method=PUT`}>
+        <form method='POST' action={`/pokemon/${_id}?_method=PUT`}>
           <input type='text' name='name' placeholder='name' defaultValue={name} /><br />
           <input type='text' name='regionalForm' placeholder='regionalForm' defaultValue={regionalForm} /><br />
           <input type='text' name='primaryType' placeholder='primaryType' defaultValue={primaryType} /><br />

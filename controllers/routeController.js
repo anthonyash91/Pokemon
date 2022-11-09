@@ -19,10 +19,11 @@ router.get('/new', viewController.create) // new
 router.get('/status/:category', dataController.index, viewController.index) // new
 router.get('/type/:category', dataController.index, viewController.index) // new
 router.get('/region/:category', dataController.index, viewController.index) // new
-router.delete('/:name/:id', dataController.destroy, viewController.redirectHome) // delete
-router.put('/:name/:id', dataController.update, viewController.redirectShow) // update
+router.delete('/:id', dataController.destroy, viewController.redirectHome) // delete
+router.put('/:id', dataController.update, viewController.redirectShow) // update
+router.put('/:id/comments', dataController.updateComment, viewController.redirectComment)
 router.post('/', dataController.create, viewController.redirectShow) // create
-router.get('/:name/:id/edit', dataController.show, viewController.edit) // edit
-router.get('/:name/:id', dataController.show, viewController.show) // show
+router.get('/:id/edit', dataController.show, viewController.edit) // edit
+router.get('/:id', dataController.show, viewController.show) // show
 
 module.exports = router

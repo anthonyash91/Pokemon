@@ -59,6 +59,24 @@ const dataController = {
       }
     })
   },
+  updateComment (req, res, next) {
+    Monster.findById(req.params.id, (err, foundMonster) => {
+      if (err) {
+        res.status(400).send({ msg: err.message })
+      } else {
+        foundMonster.comments.push(req.body)
+
+        Monster.findByIdAndUpdate(req.params.id, foundMonster, { new: true }, (err, updatedMonster) => {
+          if (err) {
+            res.status(400).send({ msg: err.message })
+          } else {
+            res.locals.data.monster = updatedMonster
+            next()
+          }
+        })
+      }
+    })
+  },
   create (req, res, next) {
     req.body.username = req.session.username
 
