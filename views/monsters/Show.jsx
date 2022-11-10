@@ -23,13 +23,15 @@ class Show extends React.Component {
         <a href={`/pokemon/${nameLowerCase}/${_id}/edit`}>edit {name}</a>
 
         <div id='comments'>
-          <h1>Comments</h1>
+          <h1>Comments ({comments.length})</h1>
           {
           comments.length
             ? comments.map((comment) => {
               return (
                 <div className='comment-container' key={comment._id}>
-                  <div className='icon' style={{ backgroundImage: `url(${comment.commentProfileIconUrl ? comment.commentProfileIconUrl : 'https://cdn.icon-icons.com/icons2/851/PNG/512/dratini_icon-icons.com_67564.png'})` }} />
+                  <div className='icon-container'>
+                    <div className='icon' style={{ backgroundImage: `url(${comment.commentProfileIconUrl})` }} />
+                  </div>
 
                   <div className='comment'>
                     <div><b>Name:</b> {comment.commentName}</div>

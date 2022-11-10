@@ -7,12 +7,13 @@ class Index extends React.Component {
     const category = this.props.category
     const number = this.props.number
     const indexPage = this.props.indexPage
+    const username = this.props.username
 
     return (
-      <Layout index={indexPage} number={number} pageType={this.props.pageType} category={category}>
+      <Layout index={indexPage} number={number} pageType={this.props.pageType} category={category} username={username}>
         {
           monsters.map((monster) => {
-            const { name, regionalForm, primaryType, secondaryType, species, region, image, entry, evolutionType, hasBeenCaught, _id } = monster
+            const { name, regionalForm, primaryType, secondaryType, species, region, image, entry, evolutionType, hasBeenCaught, _id, comments } = monster
             const nameLowerCase = name.toLowerCase()
             // const nameArray = name.split(' ')
 
@@ -32,6 +33,12 @@ class Index extends React.Component {
                 {entry}<br />
                 {evolutionType ? <>{evolutionType}<br /></> : ''}
                 {hasBeenCaught === 'caught' ? <><a className='cap' href='/pokemon/status/caught'>caught</a></> : <><a className='cap' href='/pokemon/status/uncaught'>uncaught</a></>}<br />
+                
+                <div className='comment-count'>
+                  <span className='icon-bubble'></span>
+                  <span className='number'>{comments.length}</span>
+                </div>
+                
 
                 <form method='POST' action={`/pokemon/${name}/${_id}?_method=DELETE`}><input type='submit' value={`Delete ${name}`} /></form><br />
                 <br /><br /><br /><br /><br /><br />
