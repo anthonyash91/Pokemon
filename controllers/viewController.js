@@ -1,4 +1,4 @@
-const RESOURCE_PATH = '/pokemon' // the resource path refers to the path for your URL.
+const RESOURCE_PATH = '/' // the resource path refers to the path for your URL.
 
 // only put routes that show something on a page (index, new, edit, and show) and redirect routes; create doesn't show anything, neither does delete, so they won't be put here
 const viewController = {
