@@ -1,6 +1,7 @@
 const express = require('express')
 const User = require('../models/user')
 const bcrypt = require('bcryptjs')
+const { exists } = require('../models/monster')
 const router = express.Router()
 
 router.get('/', (req, res) => {
@@ -43,10 +44,10 @@ router.post('/login', async (req, res) => {
 
           res.redirect('/pokemon')
         } else {
-          res.json({ error: "password doesn't match" })
+          res.send('The password you entered does not match the username.')
         }
       } else {
-        res.json({ error: "user doesn't exist" })
+        res.send('Sorry, the username you entered does not exist.')
       }
     })
     .catch((error) => {
@@ -58,7 +59,7 @@ router.post('/login', async (req, res) => {
 router.get('/logout', (req, res) => {
   req.session.destroy((err) => {
     if (err) {
-      console.error(err)
+      console.error()
       res.status(500).json(err)
     } else {
       res.redirect('/pokemon')

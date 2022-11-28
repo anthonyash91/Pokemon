@@ -12,11 +12,13 @@ const monsterSchema = new mongoose.Schema({
   evolutionType: { type: String, required: false },
   hasBeenCaught: { type: String, required: true },
   username: String,
+  likes: { type: Number },
   comments: [{
     commentName: { type: String, required: true },
     commentBody: { type: String, required: true },
     commentProfileIconUrl: { type: String, required: false },
-    datePosted: { type: String, required: false }
+    datePosted: { type: String, required: false },
+    likes: { type: Number, required: true }
   }]
 }, { timestamps: true })
 

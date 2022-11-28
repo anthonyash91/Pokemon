@@ -12,40 +12,67 @@ class Index extends React.Component {
     return (
       <Layout index={indexPage} number={number} pageType={this.props.pageType} category={category} username={username}>
         {
-          monsters.map((monster) => {
-            const { name, regionalForm, primaryType, secondaryType, species, region, image, entry, evolutionType, hasBeenCaught, _id, comments } = monster
-            const nameLowerCase = name.toLowerCase()
-            // const nameArray = name.split(' ')
+            monsters.map((monster) => {
+              const { name, regionalForm, primaryType, secondaryType, region, image, evolutionType, hasBeenCaught, likes, _id } = monster
 
-            return (
-              <div key={monster._id}>
-                <a href={`/pokemon/${nameLowerCase}/${_id}`}>{name}</a><br />
-                {/* {
-                  nameArray.map((name) => {
-                    return(<><a href=''>{name}</a>, </>)
-                  })
-                } */}
-                {regionalForm ? <span className='cap'>{regionalForm}<br /></span> : ''}
-                {this.props.pageType === 'type' ? primaryType === category ? <>Primary type: <a className='cap' href={`/pokemon/type/${primaryType}`}>{primaryType}</a><br /></> : secondaryType === category ? <>Secondary type: <a className='cap' href={`/pokemon/type/${secondaryType}`}>{secondaryType}</a><br /></> : '' : <>Primary type: <a className='cap' href={`/pokemon/type/${primaryType}`}>{primaryType}</a><br />{secondaryType ? <>Secondary type: <a className='cap' href={`/pokemon/type/${secondaryType}`}>{secondaryType}</a><br /></> : ''}</>}
-                {species}<br />
-                <a className='cap' href={`/pokemon/region/${region}`}>{region}</a><br />
-                <img src={image} width='100px' /><br />
-                {entry}<br />
-                {evolutionType ? <>{evolutionType}<br /></> : ''}
-                {hasBeenCaught === 'caught' ? <><a className='cap' href='/pokemon/status/caught'>caught</a></> : <><a className='cap' href='/pokemon/status/uncaught'>uncaught</a></>}<br />
-                
-                <div className='comment-count'>
-                  <span className='icon-bubble'></span>
-                  <span className='number'>{comments.length}</span>
+              return (
+                <div id={_id} className='poke-container' key={monster._id}>
+                  <div className='poke-section'>
+                    <h1><span><a href={`/pokemon/${name.toLowerCase()}/${_id}`}>{evolutionType === 'mega' ? 'Mega ' : evolutionType === 'gigantamax' ? 'Gigantamax ' : regionalForm ? regionalForm + ' ' : ''}{name}</a></span></h1>
+                    <div className='poke-picture' style={{ backgroundImage: `url(${image})` }} />
+
+                    <div className='likes'>
+                      <form method='POST' action={`/pokemon/${name}/${_id}/postIndexLikes?_method=PUT`}>
+                        <input className='heart like' type='submit' value='' />
+                      </form>
+
+                      <div className={`likes-number ${likes > 0 ? 'positive' : likes === 0 ? 'neutral' : 'negative'}`}>{likes}</div>
+
+                      <form method='POST' action={`/pokemon/${name}/${_id}/postIndexDislikes?_method=PUT`}>
+                      <input className='heart dislike' type='submit' value='' />
+                      </form>
+                    </div>
+                  </div>
+
+                  <div className='poke-section'>
+                    <h1><span>Status</span></h1>
+
+                    <div className='badge-container'>
+                      <div className={`badge-type ${hasBeenCaught === 'caught' ? 'caught' : 'uncaught'}`}>
+                        {this.props.pageType === 'status' ? <div className={`badge status ${hasBeenCaught === 'caught' ? 'caught' : 'uncaught'}`} /> : <a href={`/pokemon/status/${hasBeenCaught}`} className={`badge status ${hasBeenCaught === 'caught' ? 'caught' : 'uncaught'}`} />}<br />
+                        <span>{hasBeenCaught === 'caught' ? 'Caught' : 'Uncaught'}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className='poke-section'>
+                    <h1><span>{this.props.pageType === 'type' ? primaryType === category ? <>Primary Typing</> : secondaryType === category ? <>Secondary Typing</> : '' : <>Typing</>}</span></h1>
+
+                    {
+                      this.props.pageType === 'type'
+                        ? primaryType === category
+                          ? <><div className='badge-container'><div className={primaryType}><div className={`badge ${primaryType}`} /><br /><span>{primaryType}</span></div></div></>
+                          : secondaryType === category
+                            ? <><div className='badge-container'><div className={secondaryType}><div className={`badge ${secondaryType}`} /><br /><span>{secondaryType}</span></div></div></>
+                            : ''
+                        : <><div className='badge-container'><div className={primaryType}><a className={`badge ${primaryType}`} href={`/pokemon/type/${primaryType}`} /><br /><span>{primaryType}</span></div>{secondaryType ? <><div className={secondaryType}><a className={`badge ${secondaryType}`} href={`/pokemon/type/${secondaryType}`} /><br /><span>{secondaryType}</span></div></> : ''}</div></>
+                    }
+                  </div>
+
+                  <div className='poke-section'>
+                    <h1><span>Region</span></h1>
+
+                    <div className='badge-container'>
+                      <div className='badge-type'>
+                        {this.props.pageType === 'region' ? <div className='badge region' /> : <a className='badge region' href={`/pokemon/region/${region}`} />}<br />
+                        <span>{region}</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                
-
-                <form method='POST' action={`/pokemon/${name}/${_id}?_method=DELETE`}><input type='submit' value={`Delete ${name}`} /></form><br />
-                <br /><br /><br /><br /><br /><br />
-              </div>
-            )
-          }).reverse()
-        }
+              )
+            }).reverse()
+          }
       </Layout>
     )
   }

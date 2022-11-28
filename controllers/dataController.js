@@ -11,8 +11,6 @@ const dataController = {
       primaryType: ['bug', 'dark', 'dragon', 'electric', 'fairy', 'fighting', 'fire', 'flying', 'ghost', 'grass', 'ground', 'ice', 'normal', 'poison', 'psychic', 'rock', 'steel', 'water']
     }
 
-    
-
     for (const property in filters) {
       const compare = filters[property].includes(req.params.category)
 
@@ -27,8 +25,8 @@ const dataController = {
 
     if (filterKey === 'primaryType') {
       options.$or = [
-        { primaryType: req.params.category  }, 
-        { secondaryType: req.params.category  },
+        { primaryType: req.params.category },
+        { secondaryType: req.params.category }
       ]
 
       options.$and = [
@@ -73,7 +71,7 @@ const dataController = {
       }
     })
   },
-  updateComment (req, res, next) {
+  createComment (req, res, next) {
     Monster.findById(req.params.id, (err, foundMonster) => {
       if (err) {
         res.status(400).send({ msg: err.message })
@@ -82,6 +80,7 @@ const dataController = {
 
         req.body.datePosted = new Date().toLocaleString()
         req.body.commentProfileIconUrl = `/icons/${randomizeProfileIcons}.png`
+        req.body.likes = 0
         foundMonster.comments.push(req.body)
 
         Monster.findByIdAndUpdate(req.params.id, foundMonster, { new: true }, (err, updatedMonster) => {
@@ -95,8 +94,126 @@ const dataController = {
       }
     })
   },
+  deleteComment (req, res, next) {
+    Monster.findById(req.params.id, (err, foundMonster) => {
+      if (err) {
+        res.status(400).send({ msg: err.message })
+      } else {
+        const filteredComments = foundMonster.comments.filter((comment) => {
+          return comment._id.toString() !== req.params.commentId
+        })
+
+        Monster.findByIdAndUpdate(req.params.id, {
+          comments: filteredComments
+        }, { new: true }, (err) => {
+          if (err) {
+            res.status(400).send({ msg: err.message })
+          } else {
+            res.locals.data.monster = foundMonster
+            next()
+          }
+        })
+      }
+    })
+  },
+  updateCommentLikes (req, res, next) {
+    Monster.findById(req.params.id, (err, foundMonster) => {
+      if (err) {
+        res.status(400).send({
+          msg: err.message
+        })
+      } else {
+        const filteredComment = foundMonster.comments.map((comment) => {
+          if (comment._id.toString() === req.params.commentId) {
+            comment.likes += 1
+          }
+
+          return comment
+        })
+
+        Monster.findByIdAndUpdate(req.params.id, { comments: filteredComment }, { new: true }, (err) => {
+          if (err) {
+            res.status(400).send({ msg: err.message })
+          } else {
+            res.locals.data.monster = foundMonster
+            next()
+          }
+        })
+      }
+    })
+  },
+  updateCommentDislikes (req, res, next) {
+    Monster.findById(req.params.id, (err, foundMonster) => {
+      if (err) {
+        res.status(400).send({
+          msg: err.message
+        })
+      } else {
+        const filteredComment = foundMonster.comments.map((comment) => {
+          if (comment._id.toString() === req.params.commentId) {
+            comment.likes -= 1
+          }
+
+          return comment
+        })
+
+        Monster.findByIdAndUpdate(req.params.id, { comments: filteredComment }, { new: true }, (err) => {
+          if (err) {
+            res.status(400).send({ msg: err.message })
+          } else {
+            res.locals.data.monster = foundMonster
+            next()
+          }
+        })
+      }
+    })
+  },
+  updatePostLikes (req, res, next) {
+    Monster.findById(req.params.id, (err, foundMonster) => {
+      if (err) {
+        res.status(400).send({
+          msg: err.message
+        })
+      } else {
+        foundMonster.likes += 1
+
+        Monster.findByIdAndUpdate(req.params.id, foundMonster, { new: true }, (err, updatedMonster) => {
+          if (err) {
+            res.status(400).send({
+              msg: err.message
+            })
+          } else {
+            res.locals.data.monster = updatedMonster
+            next()
+          }
+        })
+      }
+    })
+  },
+  updatePostDislikes (req, res, next) {
+    Monster.findById(req.params.id, (err, foundMonster) => {
+      if (err) {
+        res.status(400).send({
+          msg: err.message
+        })
+      } else {
+        foundMonster.likes -= 1
+        Monster.findByIdAndUpdate(req.params.id, foundMonster, { new: true }, (err, updatedMonster) => {
+          if (err) {
+            res.status(400).send({
+              msg: err.message
+            })
+          } else {
+            res.locals.data.monster = updatedMonster
+            next()
+          }
+        })
+      }
+    })
+  },
   create (req, res, next) {
     req.body.username = req.session.username
+    req.body.likes = 0
 
     Monster.create(req.body, (err, createdMonster) => {
       if (err) {

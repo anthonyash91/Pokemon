@@ -30,7 +30,16 @@ const viewController = {
     const monsterId = req.params.id || res.locals.data.monster._id
     const monsterName = res.locals.data.monster.name
     const nameLowerCase = monsterName.toLowerCase()
-    res.redirect(`${RESOURCE_PATH}/${nameLowerCase}/${monsterId}#comments-end`)
+    res.redirect(`${RESOURCE_PATH}/${nameLowerCase}/${monsterId}#comments`)
+  },
+  redirectIndexLike (req, res, next) {
+    const monsterId = req.params.id || res.locals.data.monster._id
+    res.redirect(`${RESOURCE_PATH}#${monsterId}`)
+  },
+  redirectShowLike (req, res, next) {
+    const monsterId = req.params.id || res.locals.data.monster._id
+    const monsterName = res.locals.data.monster.name
+    res.redirect(`${RESOURCE_PATH}/${monsterName.toLowerCase()}/${monsterId}`)
   }
 }
 
